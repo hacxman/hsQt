@@ -8,9 +8,11 @@
 ##      Modified  : 2010-09-02 17:01:40
 ##
 ##      Warning   : this file is machine generated - do not modify.
+##      WARNING   : hand fixed by hexo
 ##
 #############################################################################
 
+use experimental qw(smartmatch);
 sub usage {
 	print "usage: perl build.pl [options]\n";
 	print "options:\n";
@@ -333,10 +335,10 @@ if ($iswin && not $ghcfv) {
 my $hp = "ghc";
 if ($islinux) {cbtod \$hp, "which ghc"}
 my $rgfSu = $rgSu; $rgfSu =~ s/runghc/runghc -f $hp/;
-cbtod \my $hpv, "cabal exec -- ghc --numeric-version";
-cbtod \my $vogl, "cabal exec -- ghc-pkg latest OpenGL";
-cbtod \my $vbse, "cabal exec -- ghc-pkg latest base";
-cbtod \my $vh98, "cabal exec -- ghc-pkg latest haskell98";
+cbtod \my $hpv, "ghc --numeric-version";
+cbtod \my $vogl, "ghc-pkg latest OpenGL";
+cbtod \my $vbse, "ghc-pkg latest base";
+cbtod \my $vh98, "ghc-pkg latest haskell98";
 if ($iswin) {
 	my $eld = "Extra-lib-dirs";
 	open(CFH, '<', $cfn) or die "$cfn not found";
@@ -883,7 +885,7 @@ if ($cpp) {
 		sys_ds "$mk$cj clean";
 	}
 	if ($qmk) {
-		sys_ds "qmake $spec -recursive";
+		sys_ds "qmake-qt4 $spec -recursive";
 	}
 	if ($cmk) {
 		sys_ds "$mk$cj release";
